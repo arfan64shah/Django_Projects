@@ -11,6 +11,9 @@ def predictImage(request):
     print(request.POST.dict())
     fileObj = request.FILES['filePath']
     fs = FileSystemStorage()
-    fs.save(fileObj.name, fileObj)
-    context = {'a': 1}
+    filePathName = fs.save(fileObj.name, fileObj)
+    filePathName = fs.url(filePathName)
+
+
+    context = {'filePathName': filePathName}
     return render(request, 'index.html', context)
